@@ -15,10 +15,43 @@ def density_info():
     st.write("Kerapatan dapat didefinisikan sebagai bobot per volume. Untuk benda yang berbentuk butiran (yang bisa dicurahkan), dapat dibedakan antara kerapatan curah dan kerapatan absolut. Dari kedua kerapatan ini dapat diturunkan menjadi nilai kerapatan relatif. Nilai kerapatan dapat digunakan dalam perhitungan nilai koreksi. Kerapatan juga dapat menentukan kepekatan larutan atau kekompakan bentuk padat. Kerapatan juga memiliki berbagai jenis seperti:")
     st.title("Kerapatan Curah")
     st.write("Kerapatan curah adalah bobot bahan padat berbentuk butiran dibagi volume curah yaitu volume bahan dalam bentuk tercurah (seperti beras pada takaran).")
+    st.write("Rumus kerapatan curah dapat dinyatakan sebagai berikut:")
+    st.latex(r"""
+    \rho_{\text{curah}} = \frac{W_s - W_k}{V_c}
+    """)
+    st.write("""
+    Untuk mempermudah, mari kita beri simbol untuk setiap variabel:
+
+    - \(W_s\): Bobot Gelas Ukur Isi Sampel (g)
+    - \(W_k\): Bobot Gelas Ukur Kosong (g)
+    - \(V_c\): Volume Curah (mL)
+    """)
     st.title("Kerapatan Absolut")
     st.write("Kerapatan absolut adalah bobot bahan dibagi volume nyata bahan. Untuk benda yang bersifat curah, volume nyata adalah volume curah dikurangi volume udara di antara butiran-butiran bahan. Volume celah-celah butiran ini bisa diketahui dengan cara menambahkan cairan (yang akan mengisi celah-celah butiran) yang tidak bereaksi (diserap, diresap, atau membentuk ikatan) dengan bahan.")
+    st.write("Rumus kerapatan relatif dapat dinyatakan sebagai berikut:")
+    st.latex(r"""
+    R = \frac{W_s - W_a}{V_s - V_a}
+    """)
+    st.write("""
+    Untuk mempermudah, mari kita beri simbol untuk setiap variabel:
+
+    - \(W_s\): Bobot Gelas Ukur Isi Sampel (g)
+    - \(W_a\): Bobot Gelas Ukur Isi Air (g)
+    - \(V_s\): Volume Gelas Ukur Isi Sampel (mL)
+    - \(V_a\): Volume Gelas Ukur Isi Air (mL)         
+    """)
     st.title("Kerapatan Relatif")
     st.write("Kerapatan Relatif adalah perbandingan kerapatan bahan dengan kerapatan air pada temperatur dan tekanan yang sama.")
+    st.write("Rumus kerapatan absolut dibagi densitas air dapat dinyatakan sebagai berikut:")
+    st.latex(r"""
+    \text{Kerapatan Relatif} = \frac{\text{Kerapatan Absolut}}{\text{Densitas Air}}
+    """)
+    st.write("""
+    Dalam hal ini:
+
+    - Kerapatan Absolut adalah bobot bahan dibagi volume nyata bahan.
+    - Densitas Air adalah kerapatan air pada temperatur dan tekanan yang sama.
+    """)
 
 def Densitas():
     st.markdown("<h1 style='color: blue;'>DENSITAS AIR</h1>", unsafe_allow_html=True)
@@ -44,8 +77,8 @@ def calculate_absolute_density():
     st.write('2. Gelas ukur ditambahkan sampel (kacang hijau) sebanyak 15,00 mL, sehingga menghasilkan volume akhir sebesar 40,00 mL dicatat sebagai volume akhir, ditimbang kembali gelas ukur berisi air dan sampel dan catat hasil nilai yang didapat sehagai Wb')
     st.write('3. Masukan data yang telah dihasilkan dalam perhitungan kelakulator')
     st.markdown("<h1 style='color: green;'>Masukkan Data Untuk Menghitung Kerapatan Absolut:</h1>", unsafe_allow_html=True)
-    sample_weight_abs = st.number_input('Bobot Gelas Ukur Isi Sampel (mg):', min_value=0.0, step=0.1, format="%.4f")
-    water_weight_abs = st.number_input('Bobot Gelas Ukur Isi Air (mg):', min_value=0.0, step=0.1, format="%.4f")
+    sample_weight_abs = st.number_input('Bobot Gelas Ukur Isi Sampel (g):', min_value=0.0, step=0.1, format="%.4f")
+    water_weight_abs = st.number_input('Bobot Gelas Ukur Isi Air (g):', min_value=0.0, step=0.1, format="%.4f")
     sample_volume_abs = st.number_input('Volume Gelas Ukur Isi Sampel (mL):', min_value=0.0, step=0.1, format="%.4f")
     water_volume_abs = st.number_input('Volume Gelas Ukur Isi Air (mL):', min_value=0.0, step=0.1, format="%.4f")
 
@@ -53,7 +86,7 @@ def calculate_absolute_density():
         try:
             absolute_density = (sample_weight_abs - water_weight_abs) / (sample_volume_abs - water_volume_abs)
             st.subheader('Hasil Perhitungan Kerapatan Absolut:')
-            st.write('Kerapatan Absolut:', absolute_density, 'mg/mL')
+            st.write('Kerapatan Absolut:', absolute_density, 'g/mL')
         except ZeroDivisionError:
             st.error("Error: Pembagian dengan nol tidak diizinkan.")
 
@@ -65,15 +98,15 @@ def calculate_bulk_density():
     st.write('3. Gelas ukur berisi sampel ditimbang, catat sebagai Wgb. Hitung bobot sampel (Wgb-Wgu) dan catat sebagai W.')
     st.write('4. Masukan data yang telah dihasilkan dalam perhitungan kelakulator')
     st.markdown("<h1 style='color: green;'>Masukkan Data Untuk Menghitung Kerapatan Curah:</h1>", unsafe_allow_html=True)
-    sample_weight_bulk = st.number_input('Bobot Gelas Ukur Isi Sampel (mg):', min_value=0.0, format="%.4f", key='bulk_sample_weight')
-    berat_wadah_bulk = st.number_input('Bobot Gelas Ukur (mg):', min_value=0.0, format="%.4f", key='bulk_berat_wadah')
+    sample_weight_bulk = st.number_input('Bobot Gelas Ukur Isi Sampel (g):', min_value=0.0, format="%.4f", key='bulk_sample_weight')
+    berat_wadah_bulk = st.number_input('Bobot Gelas Ukur (g):', min_value=0.0, format="%.4f", key='bulk_berat_wadah')
     sample_volume_bulk = st.number_input('Volume Gelas Ukur Isi Sampel (mL):', min_value=0.0, format="%.4f", key='bulk_sample_volume')
 
     if st.button('Hitung Kerapatan Curah'):
         try:
             bulk_density = (sample_weight_bulk - berat_wadah_bulk) / sample_volume_bulk
             st.subheader('Hasil Perhitungan Kerapatan Curah:')
-            st.write('Kerapatan Curah:', bulk_density, 'mg/mL')
+            st.write('Kerapatan Curah:', bulk_density, 'g/mL')
         except ZeroDivisionError:
             st.error("Error: Pembagian dengan nol tidak diizinkan.")
 
@@ -84,8 +117,8 @@ def calculate_relative_density():
     st.write('2. Gelas ukur ditambahkan sampel (kacang hijau) sebanyak 15,00 mL, sehingga menghasilkan volume akhir sebesar 40,00 mL dicatat sebagai volume akhir, ditimbang kembali gelas ukur berisi air dan sampel dan catat hasil nilai yang didapat sehagai Wb')
     st.write('3. Masukan data dalam perhitungan kalkulator dan tambahkan nilai densitas air berdasarkan suhu ruang')
     st.markdown("<h1 style='color: green;'>Masukkan Data Untuk Menghitung Kerapatan Relatif</h1>", unsafe_allow_html=True)
-    sample_weight_abs = st.number_input('Bobot Gelas Ukur Isi Sampel (mg):', min_value=0.0, step=0.1, format="%.4f", key='rel_sample_weight')
-    water_weight_abs = st.number_input('Bobot Gelas Ukur Isi Air (mg):', min_value=0.0, step=0.1, format="%.4f", key='rel_water_weight')
+    sample_weight_abs = st.number_input('Bobot Gelas Ukur Isi Sampel (g):', min_value=0.0, step=0.1, format="%.4f", key='rel_sample_weight')
+    water_weight_abs = st.number_input('Bobot Gelas Ukur Isi Air (g):', min_value=0.0, step=0.1, format="%.4f", key='rel_water_weight')
     sample_volume_abs = st.number_input('Volume Gelas Ukur Isi Sampel (mL):', min_value=0.0, step=0.1, format="%.4f", key='rel_sample_volume')
     water_volume_abs = st.number_input('Volume Gelas Ukur Isi Air (mL):', min_value=0.0, step=0.1, format="%.4f", key='rel_water_volume')
     temperature = st.number_input('Suhu Air (°C):', min_value=1, max_value=30, step=1, format="%d", key='rel_temperature')
